@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "nodemon index"
   },
   "repository": {
     "type": "git",
@@ -21,7 +21,9 @@
     "apollo-server": "^2.18.2",
     "dotenv": "^8.2.0",
     "graphql": "^15.3.0",
-    "mongoose": "^5.10.9",
+    "mongoose": "^5.10.9"
+  },
+  "devDependencies": {
     "nodemon": "^2.0.5"
   }
 }
