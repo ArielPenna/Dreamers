@@ -7,6 +7,7 @@ const Post = require('./models/Post');
 const User = require('./models/User');
 const { MONGODB } = process.env;
 
+//GraphQL Model Schema
 const typeDefs = gql`
   type Post {
     id: ID!
@@ -19,6 +20,7 @@ const typeDefs = gql`
   }
 `;
 
+//GraphQL Actions
 const resolvers = {
   Query: {
     async getPosts() {
@@ -32,11 +34,13 @@ const resolvers = {
   },
 };
 
+//Server Configuration
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
 
+//MongoDB Conection
 mongoose
   .connect(`${MONGODB}`, { useNewUrlParser: true })
   .then(() => {
