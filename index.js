@@ -10,6 +10,7 @@ const { MONGODB } = process.env;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  context: ({ req }) => ({ req }),
 });
 
 //MongoDB Conection
