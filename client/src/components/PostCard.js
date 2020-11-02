@@ -35,7 +35,7 @@ function PostCard({ post: { body, createdAt, id, username, likeCount, commentCou
           </Label>
         </Button>
         {user && user.username === username && (
-          <Button as="div" color="black" floated="right" onClick={() => console.log('Delete post')}>
+          <Button as="div" color="grey" floated="right" onClick={() => console.log('Delete post')}>
             <Icon name="trash" style={{ margin: 0 }} />
           </Button>
         )}
