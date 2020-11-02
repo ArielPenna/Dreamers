@@ -7,14 +7,16 @@ import { useForm } from '../util/hooks';
 import { FETCH_POSTS_QUERY } from '../util/graphql';
 
 function PostForm() {
-  const { values, onChange, onSubmit } = useForm(createPostCallback, { body: '' });
+  const { values, onChange, onSubmit } = useForm(createPostCallback, {
+    body: '',
+  });
 
   const [createPost, { error }] = useMutation(CREATE_POST_MUTATION, {
     variables: values,
     update(proxy, result) {
-      const data = proxy.readQuery({ query: FETCH_POSTS_QUERY });
+      const data = proxy.readQuery({ query: FETCH_POSTS_QUERY, variables: values });
       data.getPosts = [result.data.createPost, ...data.getPosts];
-      proxy.writeQuery({ query: FETCH_POSTS_QUERY, data });
+      proxy.writeQuery({ query: FETCH_POSTS_QUERY, variables: values, data });
       values.body = '';
     },
   });
@@ -24,15 +26,30 @@ function PostForm() {
   }
 
   return (
-    <Form onSubmit={onSubmit}>
-      <h2>Create a post: </h2>
-      <Form.Field>
-        <Form.Input placeholder="Post here!!" name="body" onChange={onChange} value={values.body} />
-        <Button type="submit" color="red">
-          Submit
-        </Button>
-      </Form.Field>
-    </Form>
+    <>
+      <Form onSubmit={onSubmit}>
+        <h2>Create a post:</h2>
+        <Form.Field>
+          <Form.Input
+            placeholder="Post Here"
+            name="body"
+            onChange={onChange}
+            value={values.body}
+            error={error ? true : false}
+          />
+          <Button type="submit" color="red">
+            Submit
+          </Button>
+        </Form.Field>
+      </Form>
+      {error && (
+        <div className="ui error message" style={{ marginBottom: 20 }}>
+          <ul className="list">
+            <li>{error.graphQLErrors[0].message}</li>
+          </ul>
+        </div>
+      )}
+    </>
   );
 }
 
