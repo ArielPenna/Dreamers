@@ -9,7 +9,6 @@ import DeleteButton from './DeleteButton';
 
 function PostCard({ post: { body, createdAt, id, username, likeCount, commentCount, likes } }) {
   const { user } = useContext(AuthContext);
-
   return (
     <Card fluid>
       <Card.Content>
