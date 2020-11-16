@@ -9,14 +9,13 @@ import DeleteButton from './DeleteButton';
 
 function PostCard({ post: { body, createdAt, id, username, likeCount, commentCount, likes } }) {
   const { user } = useContext(AuthContext);
+  function deleteButtonCallback() {
+    window.history.go('./');
+  }
   return (
     <Card fluid>
       <Card.Content>
-        <Image
-          floated="right"
-          size="mini"
-          src="https://react.semantic-ui.com/images/avatar/large/molly.png"
-        />
+        <Image floated="right" size="mini" src="https://react.semantic-ui.com/images/avatar/large/molly.png" />
         <Card.Header>{username}</Card.Header>
         <Card.Meta as={Link} to={`/posts/${id}`}>
           {moment(createdAt).fromNow(true)}
@@ -34,7 +33,7 @@ function PostCard({ post: { body, createdAt, id, username, likeCount, commentCou
             {commentCount}
           </Label>
         </Button>
-        {user && user.username === username && <DeleteButton postId={id} />}
+        {user && user.username === username && <DeleteButton postId={id} callback={deleteButtonCallback} />}
       </Card.Content>
     </Card>
   );

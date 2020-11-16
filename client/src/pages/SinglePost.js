@@ -2,26 +2,22 @@ import React, { useContext } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import moment from 'moment';
 import { Button, Card, Grid, Image, Icon, Label } from 'semantic-ui-react';
-import{Link} from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import { AuthContext } from '../context/auth';
 import LikeButton from '../components/LikeButton';
 import DeleteButton from '../components/DeleteButton';
 import { FETCH_SINGLEPOST_QUERY } from '../util/graphql';
 
-
 function SinglePost(props) {
   const postId = props.match.params.postId;
   const { user } = useContext(AuthContext);
-  
-  
-  const { data= {} } = useQuery(FETCH_SINGLEPOST_QUERY, {variables: {postId},
-  });
 
-  const thisPost = data.getPost
-  
+  const { data = {} } = useQuery(FETCH_SINGLEPOST_QUERY, { variables: { postId } });
 
-  function deletePostCallback() {    
+  const thisPost = data.getPost;
+
+  function deleteButtonCallback() {
     props.history.push('/');
   }
 
@@ -35,11 +31,7 @@ function SinglePost(props) {
       <Grid>
         <Grid.Row>
           <Grid.Column width={2}>
-            <Image
-              src="https://react.semantic-ui.com/images/avatar/large/molly.png"
-              size="small"
-              float="right"
-            />
+            <Image src="https://react.semantic-ui.com/images/avatar/large/molly.png" size="small" float="right" />
           </Grid.Column>
           <Grid.Column width={10}>
             <Card fluid>
@@ -51,10 +43,7 @@ function SinglePost(props) {
               <hr />
               <Card.Content extra>
                 <LikeButton user={user} post={{ id, likeCount, likes }} />
-                <Button
-                  as="div"
-                  labelPosition="right"
-                  onClick={() => console.log('Comment on post')}>
+                <Button as="div" labelPosition="right" onClick={() => console.log('Comment on post')}>
                   <Button basic color="blue">
                     <Icon name="comments" />
                   </Button>
@@ -62,9 +51,7 @@ function SinglePost(props) {
                     {commentCount}
                   </Label>
                 </Button>
-                {user && user.username === username && (
-                  <DeleteButton postId={id} callback={deletePostCallback} />
-                )}
+                {user && user.username === username && <DeleteButton postId={id} callback={deleteButtonCallback} />}
               </Card.Content>
             </Card>
           </Grid.Column>
@@ -74,7 +61,5 @@ function SinglePost(props) {
   }
   return postMarkup;
 }
-
-
 
 export default SinglePost;
