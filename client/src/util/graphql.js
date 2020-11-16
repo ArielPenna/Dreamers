@@ -23,8 +23,7 @@ export const FETCH_POSTS_QUERY = gql`
 `;
 
 export const FETCH_SINGLEPOST_QUERY = gql`
-  query($postId: ID!)
-  {
+  query($postId: ID!) {
     getPost(postId: $postId) {
       id
       body
@@ -41,6 +40,21 @@ export const FETCH_SINGLEPOST_QUERY = gql`
         createdAt
         body
       }
+    }
+  }
+`;
+
+export const SUBMIT_COMMENT_MUTATION = gql`
+  mutation($postId: String!, $body: String!) {
+    createComment(postId: $postId, body: $body) {
+      id
+      comments {
+        id
+        body
+        createdAt
+        username
+      }
+      commentCount
     }
   }
 `;
