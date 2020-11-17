@@ -74,7 +74,7 @@ function SinglePost(props) {
                   <Form>
                     <div className="ui action input fluid">
                       <input typo="text" placeholder="comment" name="comment" value={comment} onChange={(e) => setComment(e.target.value)} ref={commentInputRef} />
-                      <button type="submit" className="ui button teal" disabled={comment.trim() === ''} onClick={submitComment}>
+                      <button type="submit" className="ui button blue" disabled={comment.trim() === ''} onClick={submitComment}>
                         Submit
                       </button>
                     </div>
